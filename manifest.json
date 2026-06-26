@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Download Novel",
+  "version": "1.1.3",
+  "description": "Convert web novels and fiction sites into EPUB format for offline reading.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "downloads"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*novel*",
+        "*://*/*fiction*",
+        "*://*/*story*",
+        "*://*/*chapter*",
+        "*://*/*works*"
+      ],
+      "js": ["js/contentScript.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

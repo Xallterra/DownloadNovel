@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Novel</title>
+    <link rel="stylesheet" href="css/popup.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-brand">
+                <div class="logo-icon">
+                    <img src="icons/brand-mark.svg" alt="">
+                </div>
+                <h1 class="header-title">Download Novel</h1>
+            </div>
+            <div class="header-status" id="parserStatus">
+                <span class="status-dot"></span>
+                <span class="status-text" id="parserName">Waiting...</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Metadata Section -->
+            <section class="card metadata-card">
+                <h2 class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    Story Details
+                </h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="storyTitle">Title</label>
+                        <input type="text" id="storyTitle" placeholder="Story title...">
+                    </div>
+                    <div class="form-group">
+                        <label for="storyAuthor">Author</label>
+                        <input type="text" id="storyAuthor" placeholder="Author name...">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="storyLanguage">Language</label>
+                            <select id="storyLanguage">
+                                <option value="en">English</option>
+                                <option value="ja">Japanese</option>
+                                <option value="ko">Korean</option>
+                                <option value="zh">Chinese</option>
+                                <option value="es">Spanish</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                                <option value="pt">Portuguese</option>
+                                <option value="ru">Russian</option>
+                                <option value="id">Indonesian</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fileName">File Name</label>
+                            <input type="text" id="fileName" placeholder="output.epub">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="coverImageUrl">Cover Image URL</label>
+                        <div class="cover-input-row">
+                            <input type="text" id="coverImageUrl" placeholder="https://...">
+                            <div class="cover-preview" id="coverPreview">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chapter List Section -->
+            <section class="card chapters-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>
+                        Chapters
+                    </h2>
+                    <div class="chapter-controls">
+                        <span class="chapter-count" id="chapterCount">0 chapters</span>
+                        <button class="btn-ghost" id="selectAllBtn" title="Select All">All</button>
+                        <button class="btn-ghost" id="selectNoneBtn" title="Select None">None</button>
+                    </div>
+                </div>
+                <div class="chapter-list-container">
+                    <div class="chapter-list" id="chapterList">
+                        <div class="chapter-empty" id="chapterEmpty">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            <p>Navigate to a novel's table of contents page, then click this extension to load chapters.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="card progress-card" id="progressSection" style="display: none;">
+                <h2 class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    Progress
+                </h2>
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" id="progressBarFill"></div>
+                    </div>
+                    <span class="progress-count" id="progressCount">0 / 0</span>
+                </div>
+                <p class="progress-status" id="progressStatus">Initializing...</p>
+            </section>
+
+            <!-- Advanced Options (Collapsible) -->
+            <section class="card advanced-card">
+                <button class="card-toggle" id="advancedToggle">
+                    <h2 class="card-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        Advanced Options
+                    </h2>
+                    <svg class="toggle-chevron" id="advancedChevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="advanced-content" id="advancedContent">
+                    <div class="form-group">
+                        <label for="contentSelector">CSS Selector — Content</label>
+                        <input type="text" id="contentSelector" placeholder="e.g. div.chapter-content">
+                        <span class="form-hint">Target element containing chapter text</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="titleSelector">CSS Selector — Chapter Title</label>
+                        <input type="text" id="titleSelector" placeholder="e.g. h1.title">
+                    </div>
+                    <div class="form-group">
+                        <label for="chapterLinksSelector">CSS Selector — Chapter Links</label>
+                        <input type="text" id="chapterLinksSelector" placeholder="e.g. a.chapter-link">
+                        <span class="form-hint">Links to individual chapters on the TOC page</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="removeSelector">CSS Selector — Remove Elements</label>
+                        <input type="text" id="removeSelector" placeholder="e.g. .ads, .nav, .comments">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="maxConcurrent">Max Concurrent Fetches</label>
+                            <input type="number" id="maxConcurrent" value="5" min="1" max="20">
+                        </div>
+                        <div class="form-group">
+                            <label for="delayMs">Delay per Chapter (ms)</label>
+                            <input type="number" id="delayMs" value="200" min="0" max="10000" step="100">
+                        </div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeImages" checked>
+                            <span class="checkbox-custom"></span>
+                            Include Images
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="customCss">Custom EPUB Stylesheet</label>
+                        <textarea id="customCss" rows="3" placeholder="body { font-family: serif; }"></textarea>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Action Bar -->
+        <div class="rights-bar">
+            <label class="rights-confirm">
+                <input id="rightsConfirm" type="checkbox">
+                <span>I have permission to download this content. <a href="legal.html" target="_blank">Terms</a></span>
+            </label>
+        </div>
+        <footer class="action-bar">
+            <button class="btn btn-secondary" id="reloadBtn" title="Re-scan the current page">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                Reload
+            </button>
+            <button class="btn btn-primary" id="packEpubBtn" disabled>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Pack EPUB
+            </button>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="lib/jszip.min.js"></script>
+    <script src="js/Util.js"></script>
+    <script src="js/EpubItem.js"></script>
+    <script src="js/EpubPacker.js"></script>
+    <script src="js/HttpClient.js"></script>
+    <script src="js/ImageCollector.js"></script>
+    <script src="js/ProgressBar.js"></script>
+    <script src="js/Parser.js"></script>
+    <script src="js/DefaultParser.js"></script>
+    <script src="js/parsers/RoyalRoadParser.js"></script>
+    <script src="js/parsers/ArchiveOfOurOwnParser.js"></script>
+    <script src="js/parsers/FanFictionParser.js"></script>
+    <script src="js/parsers/WattpadParser.js"></script>
+    <script src="js/parsers/ScribbleHubParser.js"></script>
+    <script src="js/parsers/FreeWebNovelParser.js"></script>
+    <script src="js/parsers/NovelFullParser.js"></script>
+    <script src="js/parsers/LightNovelPubParser.js"></script>
+    <script src="js/parsers/WebNovelParser.js"></script>
+    <script src="js/parsers/WtrLabParser.js"></script>
+    <script src="js/parsers/WordPressNovelParser.js"></script>
+    <script src="js/parsers/NovelBinParser.js"></script>
+    <script src="js/parsers/ReadNovelFullParser.js"></script>
+    <script src="js/ParserFactory.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

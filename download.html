@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Novel</title>
+    <link rel="stylesheet" href="css/download.css">
+</head>
+<body>
+    <main class="download-app">
+        <header class="hero">
+            <div class="brand-lockup">
+                <img src="icons/brand-mark.svg" alt="">
+                <div>
+                    <p class="eyebrow">Download Novel</p>
+                    <h1 id="bookTitle">Preparing downloader...</h1>
+                    <p id="sourceUrl" class="source-url"></p>
+                </div>
+            </div>
+            <div class="parser-pill" id="parserName">Loading</div>
+        </header>
+
+        <section class="panel">
+            <div class="metadata-grid">
+                <label>
+                    Title
+                    <input id="titleInput" type="text">
+                </label>
+                <label>
+                    Author
+                    <input id="authorInput" type="text">
+                </label>
+                <label>
+                    File Name
+                    <input id="fileNameInput" type="text">
+                </label>
+                <label>
+                    Language
+                    <input id="languageInput" type="text" value="en">
+                </label>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="chapter-toolbar">
+                <div>
+                    <h2>Table of Contents</h2>
+                    <p id="chapterSummary">Scanning chapters...</p>
+                </div>
+                <div class="range-controls">
+                    <label>
+                        Speed
+                        <select id="speedMode">
+                            <option value="balanced" selected>Balanced</option>
+                            <option value="fast">Fast</option>
+                            <option value="cautious">Cautious</option>
+                        </select>
+                    </label>
+                    <label>
+                        From
+                        <input id="startChapter" type="number" min="1" value="1">
+                    </label>
+                    <label>
+                        To
+                        <input id="endChapter" type="number" min="1" value="1">
+                    </label>
+                </div>
+            </div>
+            <div class="chapter-preview" id="chapterPreview"></div>
+        </section>
+
+        <section class="panel status-panel">
+            <div class="status-row">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span id="progressCount">0 / 0</span>
+            </div>
+            <p id="statusText">Waiting for chapters...</p>
+            <p id="downloadStatus" class="download-status">Browser download: not started</p>
+            <pre id="statusLog"></pre>
+        </section>
+
+        <section class="rights-bar">
+            <label class="rights-confirm">
+                <input id="rightsConfirm" type="checkbox">
+                <span>I confirm I own or have permission to download this content. <a href="legal.html" target="_blank">Terms</a></span>
+            </label>
+        </section>
+
+        <footer class="actions">
+            <button id="reloadBtn" type="button" class="secondary">Reload TOC</button>
+            <button id="verificationBtn" type="button" class="secondary warning" hidden>Open Verification Page</button>
+            <button id="pauseBtn" type="button" class="secondary" disabled>Pause</button>
+            <button id="downloadBtn" type="button" disabled>Download EPUB</button>
+        </footer>
+    </main>
+
+    <script src="lib/jszip.min.js"></script>
+    <script src="js/Util.js"></script>
+    <script src="js/EpubItem.js"></script>
+    <script src="js/EpubPacker.js"></script>
+    <script src="js/HttpClient.js"></script>
+    <script src="js/ImageCollector.js"></script>
+    <script src="js/Parser.js"></script>
+    <script src="js/DefaultParser.js"></script>
+    <script src="js/parsers/RoyalRoadParser.js"></script>
+    <script src="js/parsers/ArchiveOfOurOwnParser.js"></script>
+    <script src="js/parsers/FanFictionParser.js"></script>
+    <script src="js/parsers/WattpadParser.js"></script>
+    <script src="js/parsers/ScribbleHubParser.js"></script>
+    <script src="js/parsers/FreeWebNovelParser.js"></script>
+    <script src="js/parsers/NovelFullParser.js"></script>
+    <script src="js/parsers/LightNovelPubParser.js"></script>
+    <script src="js/parsers/WebNovelParser.js"></script>
+    <script src="js/parsers/WtrLabParser.js"></script>
+    <script src="js/parsers/WordPressNovelParser.js"></script>
+    <script src="js/parsers/NovelBinParser.js"></script>
+    <script src="js/parsers/ReadNovelFullParser.js"></script>
+    <script src="js/ParserFactory.js"></script>
+    <script src="js/downloadPage.js"></script>
+</body>
+</html>
