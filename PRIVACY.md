@@ -22,6 +22,10 @@ The extension stores limited job status and preferences locally in Chrome. Users
 
 Requests to novel websites are made directly from the user's browser to the website selected by the user. Those websites may apply their own privacy policies and terms.
 
+## Limited Use
+
+Download Novel's use and transfer of information received from Google APIs complies with the Chrome Web Store User Data Policy, including the Limited Use requirements. User data is used only to provide the extension's single purpose, is not sold or used for advertising or credit decisions, and is not made available for humans to read.
+
 ## Permissions
 
 - `activeTab` and `scripting`: read the page selected by the user.
@@ -31,4 +35,6 @@ Requests to novel websites are made directly from the user's browser to the webs
 
 ## Contact
 
-Before publication, replace this section with a monitored support email address.
+Questions and privacy requests can be submitted through the public support page:
+
+https://github.com/Xallterra/DownloadNovel/issues
